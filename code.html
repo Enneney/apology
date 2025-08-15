@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Heartfelt Apology</title>
+    <style>
+        :root {
+            --primary: #ff6b8b;
+            --secondary: #ffb3cb;
+            --light: #fff5f7;
+            --dark: #4a2b32;
+            --accent: #f9d5bb;
+            --success: #4CAF50;
+            --danger: #F44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Opening Animation */
+        .opening-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeOut 2s ease-in-out 2s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .heart {
+            width: 100px;
+            height: 100px;
+            background-color: var(--light);
+            transform: rotate(45deg);
+            position: relative;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .heart:before, .heart:after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background-color: var(--light);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart:before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: -50px;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(1); }
+            25% { transform: rotate(45deg) scale(1.1); }
+            50% { transform: rotate(45deg) scale(1); }
+            75% { transform: rotate(45deg) scale(1.1); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 1s ease-out 3s forwards;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 1s ease-out 3.5s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-falling {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            animation: falling linear infinite;
+        }
+
+        @keyframes falling {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Apology Section */
+        .apology {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: white;
+        }
+
+        .apology-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .apology h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp 1s ease-out 4.5s forwards;
+        }
+
+        .apology-message {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp 1s ease-out 5s forwards;
+        }
+
+        .apology-message:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 30px;
+            background-color: var(--light);
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+        }
+
+        @keyframes fadeInSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Forgiveness Section */
+        .forgiveness {
+            padding: 40px 20px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .forgiveness-box {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .forgiveness-question {
+            margin-bottom: 30px;
+        }
+
+        .forgiveness-question h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .response-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .response-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .yes-btn {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .no-btn {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .response-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .response-message {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .happy-response {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: var(--dark);
+        }
+
+        .sad-response {
+            background-color: rgba(244, 67, 54, 0.2);
+            color: var(--dark);
+        }
+
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 6s forwards;
+        }
+
+        /* Reasons Section */
+        .reasons {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: white;
+        }
+
+        .reasons h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .reasons-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .reason-box {
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .reason-box:hover {
+            transform: scale(1.02);
+            background-color: white;
+        }
+
+        .reason-box:nth-child(odd) {
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        .reason-box:nth-child(even) {
+            transform: translateX(50px);
+            opacity: 0;
+            animation: slideIn 1s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .response-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .reason-box:nth-child(odd),
+            .reason-box:nth-child(even) {
+                transform: none;
+                opacity: 0;
+                animation: fadeInSlideUp 1s ease-out forwards;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Opening Animation -->
+    <div class="opening-screen">
+        <div class="heart"></div>
+        <p class="loading-text">All my love...</p>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hearts" id="hearts"></div>
+        <h1>I'm Sorry, My Love</h1>
+        <p>This little space is just for you - my heart wrapped in code, waiting for your forgiveness</p>
+    </section>
+
+    <!-- Apology Section -->
+    <section class="apology">
+        <div class="apology-container">
+            <h2>My Heartfelt Apology</h2>
+            <div class="apology-message">
+                <p>My darling,</p>
+                <p>I'm writing these words with a heart full of regret for hurting you. I want you to know how deeply sorry I am for my actions.</p>
+                <p>You mean everything to me, and the thought of causing you pain breaks my heart. I promise to learn from this mistake and do better.</p>
+                <p>Please know that your happiness is my priority, and I will work every day to be the person you deserve.</p>
+                <p class="signature">Your loving [Your Name]</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Forgiveness Section -->
+    <section class="forgiveness">
+        <div class="forgiveness-box">
+            <div class="forgiveness-question">
+                <h3>Will you accept my apology?</h3>
+                <p>I truly hope you can find it in your heart to forgive me</p>
+            </div>
+            
+            <div class="response-buttons">
+                <button class="response-btn yes-btn" id="yesBtn">Yes, I forgive you</button>
+                <button class="response-btn no-btn" id="noBtn">I need more time</button>
+            </div>
+            
+            <div class="response-message happy-response" id="happyResponse">
+                <h3>Thank you my love! ❤️</h3>
+                <p>Your forgiveness means the world to me. I promise to be better and cherish you always.</p>
+            </div>
+            
+            <div class="response-message sad-response" id="sadResponse">
+                <h3>I understand 😔</h3>
+                <p>I'll be waiting patiently and working hard to earn your forgiveness.</p>
+                <p>Please know that I love you with all my heart.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reasons Section -->
+    <section class="reasons">
+        <div class="reasons-container">
+            <h2>10 Reasons I Love You</h2>
+            <!-- Reasons will be added here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with love for the most amazing woman in the world</p>
+    </footer>
+
+    <script>
+        // Opening animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create falling hearts in background
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 20; i++) {
+                createHeart();
+            }
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-falling');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 5 + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+                heartsContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                    createHeart();
+                }, 8000);
+            }
+
+            // Forgiveness response handling
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const happyResponse = document.getElementById('happyResponse');
+            const sadResponse = document.getElementById('sadResponse');
+
+            yesBtn.addEventListener('click', function() {
+                happyResponse.style.display = 'block';
+                sadResponse.style.display = 'none';
+                
+                // Create celebratory animation
+                const celebrationInterval = setInterval(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.style.position = 'fixed';
+                    heart.style.fontSize = Math.random() * 30 + 15 + 'px';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = Math.random() * 100 + 'vh';
+                    heart.style.animation = 'floatUp 3s forwards';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, 100);
+                
+                setTimeout(() => {
+                    clearInterval(celebrationInterval);
+                }, 2000);
+            });
+
+            noBtn.addEventListener('click', function() {
+                sadResponse.style.display = 'block';
+                happyResponse.style.display = 'none';
+                
+                // Change background color temporarily
+                document.body.style.background = '#fff5f7';
+                setTimeout(() => {
+                    document.body.style.background = '#fff';
+                }, 500);
+                setTimeout(() => {
+                    document.body.style.background = '#fff5f7';
+                }, 700);
+                setTimeout(() => {
+                    document.body.style.background = '';
+                }, 1200);
+            });
+
+            // Add 10 reasons I love you
+            const reasons = [
+                "The way your eyes sparkle when you smile",
+                "Your kindness that touches everyone around you",
+                "How you understand me without words",
+                "The warmth of your presence that comforts me",
+                "Your infectious laugh that brightens my day",
+                "The way you always support my dreams",
+                "Your beautiful heart full of love",
+                "How you challenge me to be a better person",
+                "Your intelligence and the way you see the world",
+                "Simply because you're you - my perfect match"
+            ];
+
+            const reasonsContainer = document.querySelector('.reasons-container');
+            reasons.forEach((reason, index) => {
+                const reasonBox = document.createElement('div');
+                reasonBox.classList.add('reason-box');
+                reasonBox.innerHTML = `<p><strong>${index + 1}.</strong> ${reason}</p>`;
+                reasonBox.style.animationDelay = `${index * 0.1}s`;
+                reasonsContainer.appendChild(reasonBox);
+            });
+        });
+
+        // Add floating animation for celebration hearts
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
